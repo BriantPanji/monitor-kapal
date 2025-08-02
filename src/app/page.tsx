@@ -4,16 +4,27 @@ import Content from "@c/Content";
 import ContentWrapper from "@c/ContentWrapper";
 import Container from "@c/Container";
 import { useState } from "react";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import StatusKapal from "@/components/StatusKapal";
+// import MapContent from "@/components/MapContent";
+const MapContent = dynamic(() => import("@c/MapContent"), {
+  ssr: false
+});
+
+type KapalBerlayar = null | "A" | "B";
 
 export default function Home() {
   const [lintasan, setLintasan] = useState("A");
+  const [kapalBerlayar, setKapalBerlayar] = useState<KapalBerlayar>("A");
 
   return (
     <Container header="Dashboard Monitor" headerIcon="fa-gauge-high">
+      <StatusKapal />
       <ContentWrapper>
         <Content>
           <div className="w-full h-fit min-h-full flex items-center justify-between flex-col gap-4">
-            <h1 className="w-full text-center bg-wk-secondary rounded-md border-[0.5px] border-wk-text/10 py-1 max-xl:text-xs">Navigasi Lintasan</h1>
+            {/* <h1 className="w-full text-center bg-wk-secondary rounded-md border-[0.5px] border-wk-text/10 py-1 max-xl:text-xs">Navigasi Lintasan</h1> */}
             <div className="w-full h-full flex flex-col items-center justify-center px-6 gap-2">
               <button className={ `w-full px-2 py-1 border ${lintasan === "A" ? 'lintasanBtnActive' : 'lintasanBtnInactive'} max-xl:text-xs rounded-md cursor-pointer transition-all duration-100` } onClick={ () => setLintasan("A") } type="button">
                 Lintasan A
@@ -24,10 +35,10 @@ export default function Home() {
             </div>
           </div>
         </Content>
-        <Content customBg="bg-[#072d09]">
+        {/* <Content customBg="bg-[#072d09]">
           <div className="w-full h-full flex items-center justify-center flex-col gap-0.5 uppercase font-extralight text-xs">
             <h1 className="text-3xl">⚓</h1>
-            <p>Subut marine</p>
+            <p>Sikonek marine</p>
             <p>Robotics Team</p>
           </div>
         </Content>
@@ -36,13 +47,60 @@ export default function Home() {
         </Content>
         <Content>
           <h1 className="text-2xl font-light">P-II</h1>
-        </Content>
-      </ContentWrapper>
-      <ContentWrapper>
-        <Content>
+        </Content> */}
+
+        <Content flex={4}>
           <div className="w-full min-h-full h-fit flex items-center justify-between flex-col gap-6 py-1">
             <h1>GEO-TAG INFOS</h1>
-            <div className="w-full h-full flex items-start justify-center gap-3 text-wk-text/90 flex-wrap">
+            <div className="w-full h-full flex items-start justify-around px-5 gap-x-3 text-wk-text/90 flex-wrap">
+              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
+                <span className="text-gray-400 text-xs  text-nowrap">Day</span>
+                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">Saturday</span>
+              </div>
+              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
+                <span className="text-gray-400 text-xs  text-nowrap">Date</span>
+                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">7/12/2025</span>
+              </div>
+              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
+                <span className="text-gray-400 text-xs  text-nowrap">Time</span>
+                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">4:28:29 PM</span>
+              </div>
+              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
+                <span className="text-gray-400 text-xs  text-nowrap">SOG (Knot)</span>
+                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">3.2</span>
+              </div>
+              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
+                <span className="text-gray-400 text-xs  text-nowrap">SOG (Km/h)</span>
+                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">5.9</span>
+              </div>
+              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
+                <span className="text-gray-400 text-xs  text-nowrap">COG</span>
+                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">45°</span>
+              </div>
+              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
+                <span className="text-gray-400 text-xs  text-nowrap">Coordinate</span>
+                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">5.548128°N, 95.323753°E</span>
+              </div>
+              {/* <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
+                <span className="text-gray-400 text-xs text-nowrap">Position (X,Y)</span>
+                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">Lintasan { lintasan }</span>
+              </div> */}
+            </div>
+          </div>
+        </Content>
+        {/* <Content>
+          <div className="w-full h-full flex items-center justify-center flex-col gap-5 pb-1">
+            <h1 className="font-normal">Status Kapal</h1>
+            <strong className={`${kapalBerlayar === lintasan ? "text-emerald-600" : "text-red-600"}`}>{kapalBerlayar === lintasan ? "Berlayar" : "Tidak Berlayar"}</strong>
+          </div>
+        </Content> */}
+
+      </ContentWrapper>
+      <ContentWrapper>
+        {/* <Content>
+          <div className="w-full min-h-full h-fit flex items-center justify-between flex-col gap-6 py-1">
+            <h1>GEO-TAG INFOS</h1>
+            <div className="w-full h-full flex items-center justify-center px-10 gap-x-3 text-wk-text/90 flex-wrap">
               <div className="min-w-24 w-full flex-1 flex gap-1 items-center justify-between flex-col">
                 <span className="text-gray-400 text-xs ">Day</span>
                 <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">Saturday</span>
@@ -77,9 +135,75 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </Content> */}
+
+        
+        <Content>
+          <MapContent />
         </Content>
+
+        <Content>
+          <div className="w-full h-full flex items-center justify-center flex-col gap-2.5 pb-1">
+            <h1>Surface Imaging</h1>
+            <div className="w-full h-full flex items-center justify-center !aspect-square">
+              <Image src={"/surface_imaging_ph.png"} alt="Imaging Mission" width={400} height={400} className="w-full h-full rounded-md" />
+            </div>
+          </div>
+        </Content>
+        
+        <Content>
+          <div className="w-full h-full flex items-center justify-center flex-col gap-2.5 pb-1">
+            <h1>Underwater Imaging</h1>
+            <div className="w-full h-full flex items-center justify-center !aspect-square">
+              <Image src={"/underwater_imaging_ph.png"} alt="Imaging Mission" width={400} height={400} className="w-full h-full rounded-md" />
+            </div>
+          </div>
+        </Content>
+
+        {/* <Content>
+          <div className="w-full min-h-full h-fit flex items-center justify-between flex-col gap-6 py-1">
+            <h1>GEO-TAG INFOS</h1>
+            <div className="w-full h-full flex items-start justify-center gap-3 text-wk-text/90 flex-wrap">
+              <div className="min-w-24 w-full flex-1 flex gap-1 items-center justify-between flex-col">
+                <span className="text-gray-400 text-xs ">SOG (Knot)</span>
+                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">3.2</span>
+              </div>
+              <div className="min-w-24 w-full flex-1 flex gap-1 items-center justify-between flex-col">
+                <span className="text-gray-400 text-xs ">SOG (Km/h)</span>
+                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">5.9</span>
+              </div>
+              <div className="min-w-24 w-full flex-1 flex gap-1 items-center justify-between flex-col">
+                <span className="text-gray-400 text-xs ">COG</span>
+                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">45°</span>
+              </div>
+              <div className="min-w-24 w-full flex-1 flex gap-1 items-center justify-between flex-col">
+                <span className="text-gray-400 text-xs ">Position (X,Y)</span>
+                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">Lintasan { lintasan }</span>
+              </div>
+            </div>
+          </div>
+        </Content> */}
+
       </ContentWrapper>
-      <ContentWrapper>
+      {/* <ContentWrapper>
+        <Content>
+          <div className="w-full h-full flex items-center justify-center flex-col gap-1 py-1">
+            <h1>Surface Imaging</h1>
+            <div className="w-full h-full flex items-center justify-center !aspect-square">
+              <Image src={"/surface_imaging_ph.png"} alt="Imaging Mission" width={400} height={400} className="w-full h-full rounded-md" />
+            </div>
+          </div>
+        </Content>
+        <Content>
+          <div className="w-full h-full flex items-center justify-center flex-col gap-1 py-1">
+            <h1>Underwater Imaging</h1>
+            <div className="w-full h-full flex items-center justify-center !aspect-square">
+              <Image src={"/underwater_imaging_ph.png"} alt="Imaging Mission" width={400} height={400} className="w-full h-full rounded-md" />
+            </div>
+          </div>
+        </Content>
+      </ContentWrapper> */}
+      {/* <ContentWrapper>
         <Content>
           <div className="flex flex-col w-full h-full py-4 px-4 justify-between gap-6">
             <span className="w-full h-fit">
@@ -208,7 +332,7 @@ export default function Home() {
             </div>
           </div>
         </Content>
-      </ContentWrapper>
+      </ContentWrapper> */}
     </Container>
   );
 }
