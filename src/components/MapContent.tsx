@@ -164,7 +164,7 @@ const MAP_CONFIG = {
 
 
 
-export default function MapGrid() {
+export default function MapContent() {
   // Memoize the grid data to prevent recalculation on re-renders
   const gridData = useMemo(
     () => createRotatedGrid(CENTER.latitude, CENTER.longitude, CENTER.bearing),
@@ -178,7 +178,7 @@ export default function MapGrid() {
 
   return (
     <div className="relative w-full !max-h-[50vh] flex items-center justify-center flex-col gap-2.5 pb-1">
-      <h1>Map</h1>
+      <h1>Satellite Map</h1>
       <Map
         initialViewState={ {
           latitude: INITIAL_VIEW.latitude,
@@ -224,11 +224,11 @@ export default function MapGrid() {
         </Source>
 
         {/* Render all buoys from the listbuoy array */}
-        {buoyData.map((buoyGeoJSON, index) => (
+        {/* {buoyData.map((buoyGeoJSON, index) => (
           <Source key={`buoy-source-${index}`} id={`buoy-data-${index}`} type="geojson" data={buoyGeoJSON}>
             <Layer {...createBuoyLayerStyle(index, listbuoy[index][2] as string)} />
           </Source>
-        ))}
+        ))} */}
       </Map>
     </div>
   );
