@@ -9,6 +9,8 @@ import Image from "next/image";
 import VirtualMap from "@/components/VirtualMap";
 import BoatStatus from "@/components/BoatStatus";
 import ImagingMission from "@/components/ImagingMission";
+import GeoTagInfo from "@/components/GeoTagInfo";
+import OtherLogs from "@/components/OtherLogs";
 const MapContent = dynamic(() => import("@c/MapContent"), {
   ssr: false
 });
@@ -40,41 +42,7 @@ export default function Home() {
           </div>
         </Content>
 
-        <Content flex={ 4 }>
-          <div className="w-full min-h-full h-fit flex items-center justify-between flex-col gap-6 py-1">
-            <h1>GEO-TAG INFOS</h1>
-            <div className="w-full h-full flex items-start justify-around px-5 gap-x-3 text-wk-text/90 flex-wrap">
-              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
-                <span className="text-gray-400 text-xs  text-nowrap">Day</span>
-                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">Saturday</span>
-              </div>
-              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
-                <span className="text-gray-400 text-xs  text-nowrap">Date</span>
-                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">7/12/2025</span>
-              </div>
-              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
-                <span className="text-gray-400 text-xs  text-nowrap">Time</span>
-                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">4:28:29 PM</span>
-              </div>
-              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
-                <span className="text-gray-400 text-xs  text-nowrap">SOG (Knot)</span>
-                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">3.2</span>
-              </div>
-              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
-                <span className="text-gray-400 text-xs  text-nowrap">SOG (Km/h)</span>
-                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">5.9</span>
-              </div>
-              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
-                <span className="text-gray-400 text-xs  text-nowrap">COG</span>
-                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">45°</span>
-              </div>
-              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
-                <span className="text-gray-400 text-xs  text-nowrap">Coordinate</span>
-                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">5.548128°N, 95.323753°E</span>
-              </div>
-            </div>
-          </div>
-        </Content>
+        <GeoTagInfo />
 
       </ContentWrapper>
 
@@ -84,44 +52,7 @@ export default function Home() {
           <MapContent />
         </Content>
 
-
-        <Content>
-          <div className="w-full min-h-full h-fit flex items-center justify-between flex-col gap-6 py-1">
-            <h1>Other Logs</h1>
-            <div className="w-full h-full flex items-start justify-around px-5 gap-x-3 text-wk-text/90 flex-wrap">
-              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
-                <span className="text-gray-400 text-xs  text-nowrap">Mission Status</span>
-                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">Unbegun</span>
-              </div>
-              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
-                <span className="text-gray-400 text-xs  text-nowrap">Boat Status</span>
-                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">Off</span>
-              </div>
-              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
-                <span className="text-gray-400 text-xs  text-nowrap">Imaging Mission</span>
-                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">Unbegun</span>
-              </div>
-              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
-                <span className="text-gray-400 text-xs  text-nowrap">Battery</span>
-                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">85%</span>
-              </div>
-              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
-                <span className="text-gray-400 text-xs text-nowrap">Mission Progress</span>
-                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">10%</span>
-              </div>
-              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
-                <span className="text-gray-400 text-xs text-nowrap">ETA</span>
-                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">15 min</span>
-              </div>
-              <div className="min-w-25 w-full flex-1 flex gap-1.5 items-center justify-between flex-col">
-                <span className="text-gray-400 text-xs text-nowrap">Average Speed</span>
-                <span className="text-xs bg-wk-secondary w-full text-center py-2 rounded-md border-[0.5px] border-wk-text/10">2.5 m/s</span>
-              </div>
-            </div>
-          </div>
-        </Content>
-
-
+        <OtherLogs />
 
         <Content>
           <div className="w-full h-full flex items-center justify-center flex-col gap-2.5 pb-1">
@@ -131,7 +62,6 @@ export default function Home() {
             </div>
           </div>
         </Content>
-
 
       </ContentWrapper>
 

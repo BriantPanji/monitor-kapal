@@ -97,7 +97,14 @@ export default function VirtualMap({ lintasan = 'A' }: { lintasan: Lintasan }) {
   const [markers, setMarkers] = useState([boatStartPoint[curLintasan]]);
 
   useEffect(() => {
-    setMarkers([boatStartPoint[curLintasan]]);
+    setMarkers([
+      boatStartPoint[curLintasan],
+    // { id: 2, x: 4.5, y: 3.5, color: startPoint[curLintasan].color },
+    // { id: 3, x: 4.525, y: 3, color: startPoint[curLintasan].color },
+    // { id: 4, x: 4.325, y: 2.5, color: startPoint[curLintasan].color },
+    // { id: 5, x: 4.66, y: 2.2, color: startPoint[curLintasan].color },
+    // { id: 6, x: 4.69, y: 1.5, color: startPoint[curLintasan].color },
+    ]);
   }, [curLintasan, lintasan]);
 
 

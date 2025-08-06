@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Content from "./Content";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface ImagingMissionProps {
     missionName: string;
@@ -14,6 +14,8 @@ export default function ImagingMission({missionName, src, alt, downloadFilename}
     const defaultFileExt = src.split('.').pop() || 'png';
     const [formattedFilename, setFormattedFilename] = useState(`${downloadFilename || missionName}.${defaultFileExt}`);
 
+    const btnRef = useRef<HTMLAnchorElement>(null);
+
     useEffect(() => {
         const date = new Date(new Date().getTime() + (7 * 60 * 60 * 1000)).toISOString().replace(/[-:T]/g, '');
         const formattedTime = date.slice(0, 8) + '_' + date.slice(8, 14);
@@ -22,13 +24,13 @@ export default function ImagingMission({missionName, src, alt, downloadFilename}
 
 
     return (
-        <Content>
+        <Content buttonIcon="fa-download" buttonAction={() => btnRef.current?.click()} buttonTitle={"Download " + missionName}>
             <div className="w-full h-full flex items-center justify-center flex-col gap-2.5 pb-1">
                 <h1>{missionName}</h1>
                 <div className="w-full h-full flex items-center justify-center !aspect-square">
                     <Image src={src} alt={alt} width={400} height={400} className="w-full h-full rounded-md" />
                 </div>
-                <a href={src} className="text-blue-500 underline font-light mt-1 " download={formattedFilename}>Download</a>
+                <a href={src} ref={btnRef} hidden className="text-blue-500 underline font-light mt-1 hidden " download={formattedFilename}>Download</a>
             </div>
         </Content>
     )
