@@ -2,13 +2,32 @@
 
 import { useState, useEffect } from 'react';
 
+
+type Lintasan = 'A' | 'B' | null;
+type Lintasan2 = 'a' | 'b';
+
+interface VMapPoint {
+  x: number;
+  y: number;
+}
+interface VMapPointColor extends VMapPoint {
+  color: string;
+}
+interface VMapPointId extends VMapPoint {
+  id: number;
+}
+
+interface VMapPointColorId extends VMapPointId {
+  color: 1 | 0; // 1 for green, 0 for red
+}
+
 const GRID_SIZE = 50; // 50px per cell
 const GRID_ROWS = 5;
 const GRID_COLS = 5;
 
 const idColors = ['green', 'red'];
 
-const buoys = {
+const buoys: Record<Lintasan2, VMapPointColorId[]> = {
   a: [
     { id: 1, x: 4.4, y: 3.15, color: 1 },
     { id: 2, x: 4.65, y: 3.15, color: 0 },
@@ -54,18 +73,19 @@ const buoys = {
     { id: 20, x: 4.32, y: 3.065, color: 0 }]
 };
 
-const startPoint = {
+
+const startPoint: Record<Lintasan2, VMapPointColor> = {
   a: { x: 4.5, y: 4.5, color: 'red' },
   b: { x: 0.9, y: 4.5, color: 'green' },
 }
-const boatStartPoint = {
-  a: { id: 1, x: 4.5, y: 4.5, color: 'red' },
-  b: { id: 1, x: 0.55, y: 4.5, color: 'green' },
+const boatStartPoint: Record<Lintasan2, VMapPointId> = {
+  a: { id: 1, x: 4.5, y: 4.5 },
+  b: { id: 1, x: 0.55, y: 4.5 },
 }
 
 
 
-const imageBox = {
+const imageBox: Record<Lintasan2, VMapPointColor[]> = {
   a: [{
     x: 0.85,
     y: 3.82,
@@ -86,8 +106,6 @@ const imageBox = {
   }]
 }
 
-type Lintasan = 'A' | 'B' | null;
-type Lintasan2 = 'a' | 'b';
 
 export default function VirtualMap({ lintasan = 'A' }: { lintasan: Lintasan }) {
 
@@ -99,11 +117,12 @@ export default function VirtualMap({ lintasan = 'A' }: { lintasan: Lintasan }) {
   useEffect(() => {
     setMarkers([
       boatStartPoint[curLintasan],
-    // { id: 2, x: 4.5, y: 3.5, color: startPoint[curLintasan].color },
-    // { id: 3, x: 4.525, y: 3, color: startPoint[curLintasan].color },
-    // { id: 4, x: 4.325, y: 2.5, color: startPoint[curLintasan].color },
-    // { id: 5, x: 4.66, y: 2.2, color: startPoint[curLintasan].color },
-    // { id: 6, x: 4.69, y: 1.5, color: startPoint[curLintasan].color },
+      // contoh markers untuk path (lintasan A)
+      // { id: 2, x: 4.5, y: 3.5 },
+      // { id: 3, x: 4.525, y: 3 },
+      // { id: 4, x: 4.325, y: 2.5 },
+      // { id: 5, x: 4.66, y: 2.2 },
+      // { id: 6, x: 4.69, y: 1.5 },
     ]);
   }, [curLintasan, lintasan]);
 
